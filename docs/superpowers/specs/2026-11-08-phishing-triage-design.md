@@ -42,7 +42,7 @@ Dependencies: `requests` and `tldextract`. Dev dependency: `pytest`. Nothing els
 - **tldextract** fetches the public suffix list on first run. Configure it to use the bundled snapshot so tests and offline runs stay deterministic.
 
 ## Verdict logic
-Rules are additive. Each returns `(points, reason)`. All rules live in one list in `verdict.py` with their weights documented in a table in the README. Score thresholds: under 30 is **benign**, 30–69 is **suspicious**, 70 or more is **malicious**. Hard overrides: an attachment hash or URL flagged by at least N VT engines → malicious. Example rules: SPF/DKIM/DMARC fail, Reply-To mismatch, lookalike sender domain, href/text mismatch, IP with a high AbuseIPDB score, newly-seen URL, risky attachment extension (.docm/.iso/.html/.lnk). If enrichment is incomplete, add a reason line saying so.
+Rules are additive. Each returns `(points, reason)`. All rules live in one list in `verdict.py` with their weights documented in a table in the README. Score thresholds: under 30 is **benign**, 30–69 is **suspicious**, 70 or more is **malicious**. Hard overrides: an attachment hash or URL flagged malicious by ≥5 VT engines → malicious (constant `VT_HARD_THRESHOLD`, tunable). Example rules: SPF/DKIM/DMARC fail, Reply-To mismatch, lookalike sender domain, href/text mismatch, IP with a high AbuseIPDB score, URL with raw-IP host or known shortener, risky attachment extension (.docm/.iso/.html/.lnk). If enrichment is incomplete, add a reason line saying so.
 
 **Exit codes** (useful for SOAR chaining): 0 benign, 1 suspicious, 2 malicious, 3 error.
 
