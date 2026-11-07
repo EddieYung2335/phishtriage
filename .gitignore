@@ -1,0 +1,13 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.sqlite3
+# raw malicious samples never committed; only sanitized ones in samples/
+raw_samples/
+*.pcap
+*.pcapng
+*.zip
+*.mem
+*.raw
