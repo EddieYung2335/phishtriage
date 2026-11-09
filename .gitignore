@@ -11,3 +11,4 @@ raw_samples/
 *.zip
 *.mem
 *.raw
+*.egg-info/
