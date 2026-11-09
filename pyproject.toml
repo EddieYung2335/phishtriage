@@ -1,0 +1,36 @@
+[build-system]
+# Tell pip how to build the project 
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+# ID card
+name = "phishtriage"
+version = "0.1.0"
+requires-python = ">=3.11" 
+dependencies = [
+    "requests>=2.31",
+    "tldextract"
+]
+
+[project.optional-dependencies]
+# Extra packages only some people need
+dev = [
+    "pytest"
+]
+
+[project.scripts]
+# Makes a terminal command that runs your code
+phishtriage = "phishtriage.cli:main"
+
+[tool.setuptools.packages.find]
+# Tells setuptools where your code folder is 
+include = [
+    "phishtriage",
+    "phishtriage.*"
+]
+
+[tool.pytest.ini_options]
+# Settings for pytest
+testpaths = ["tests"]
+markers = ["live: hits real VirusTotal/AbuseIPDB/URLScan APIs; needs API keys and network (run with: pytest -m live)"]
